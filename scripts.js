@@ -7,15 +7,18 @@ window.onload = function() {
 };
 
 function fetchTags() {
-    fetch('tags.json')
-    .then(response => response.json())
-    .then(data => {
-        globalTags = data.tags;
-        populateGlobalTags();
-    })
-    .catch(error => {
-        console.error("Error fetching tags:", error);
-    });
+    // fetch('tags.json')
+    // .then(response => response.json())
+    // .then(data => {
+    //     globalTags = data.tags;
+    //     populateGlobalTags();
+    // })
+    // .catch(error => {
+    //     console.error("Error fetching tags:", error);
+    // });
+
+    globalTags = tags.tags;
+    populateGlobalTags();
 }
 
 function populateGlobalTags() {
