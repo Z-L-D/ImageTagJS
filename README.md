@@ -15,7 +15,7 @@ This is 100% functional although rough in appearance. You are currently on your 
 ```
 
 <ol>
-    <li>Open index.html with your preferred browser. It should work with the vast majority.</li>
+    <li>Load the folder with your HTML server of choice. You will likely get a Cross Origin error otherwise.</li>
     <li>Press the Browse button and select your image dataset folder.</li>
     <li>You will be prompted by your browser to allow your images to be blobbed into memory. Press Upload.</li>
     <li>Press the Load Images button to insert them into the page.</li>
@@ -26,6 +26,7 @@ This is 100% functional although rough in appearance. You are currently on your 
 
 ## TODO:
 <ul>
+    <li>Add built-in HTML server - HIGH PRIORITY</li>
     <li>Search for already present text files associated with the images and insert the text</li>
     <li>Organize tags into tabbed categories with extensive lists of items based on the categories: art medium, people, animals, poses, clothing, spaces, furnishings, objects, food, events</li>
     <li>Randomize file names to prevent clashing with new data being added to a dataset</li>
