@@ -30,4 +30,6 @@ This is 100% functional although rough in appearance. You are currently on your 
     <li>Organize tags into tabbed categories with extensive lists of items based on the categories: art medium, people, animals, poses, clothing, spaces, furnishings, objects, food, events</li>
     <li>Randomize file names to prevent clashing with new data being added to a dataset</li>
     <li>Style the page</li>
+    <li>Possibly explore adding functionality through Pica.js to add a max width and height and automatically perform a weighted average downscale if necessary.</li>
+    <li>Possibly explore adding functionality through Pica.js to add a built in cropping function</li>
 </ul>
