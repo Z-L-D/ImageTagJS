@@ -2,7 +2,7 @@
 HTML/JS based image tagger
 
 
-This is 100% functional although rough in appearance. You are currently on your own for creating your own lit of tags. These are held in a single category JSON file called 'tags.json'. This will be further built out in the future.
+This is 100% functional although rough in appearance. You are currently on your own for creating your own list of tags. These are held in a single category JSON file called 'tags.json'. This will be further built out in the future.
 
 Usage:
 
