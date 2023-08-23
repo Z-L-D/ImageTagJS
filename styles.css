@@ -1,0 +1,85 @@
+#imageColumn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.imageRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+img {
+    max-width: 200px;
+    height: auto;
+}
+
+textarea {
+    height: 100px;
+    width: 200px;
+}
+
+.tagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tagsContainer label {
+    cursor: pointer;
+}
+
+.globalTagsContainer, .tagsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.globalTagsContainer button, .tagsContainer button {
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    background-color: #f7f7f7;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.globalTagsContainer button:hover, .tagsContainer button:hover {
+    background-color: #e0e0e0;
+}
+
+.tabs {
+    width: 100%;
+    min-height: 200px;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+.tab-links {
+    display: flex;
+    gap: 10px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.tab-links button {
+    padding: 5px 15px;
+    border: none;
+    background-color: #f1f1f1;
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s;
+}
+
+.tab-links button.active,
+.tab-links button:hover {
+    background-color: #ddd;
+}
+
+.tab-content > div {
+    display: none;
+}
+
+.tab-content > div.active {
+    display: block;
+}
