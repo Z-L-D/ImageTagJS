@@ -8,7 +8,14 @@ This is 100% functional although rough in appearance. You are currently on your 
 
 Usage:
 
+Clone this repository:
+
+```
+   git clone https://github.com/Z-L-D/ImageTagJS.git
+```
+
 <ol>
+    <li>Open index.html with your preferred browser. It should work with the vast majority.</li>
     <li>Press the Browse button and select your image dataset folder.</li>
     <li>You will be prompted by your browser to allow your images to be blobbed into memory. Press Upload.</li>
     <li>Press the Load Images button to inser them into the page.</li>
