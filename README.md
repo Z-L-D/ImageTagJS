@@ -18,10 +18,10 @@ Clone this repository:
     <li>Open index.html with your preferred browser. It should work with the vast majority.</li>
     <li>Press the Browse button and select your image dataset folder.</li>
     <li>You will be prompted by your browser to allow your images to be blobbed into memory. Press Upload.</li>
-    <li>Press the Load Images button to inser them into the page.</li>
-    <li>At the top of the column of images is the Global Tags buttons. Pressing these will add the tag to ever image that is currently loaded. Pressing again will remove it from every image.</li>
-    <li>Beside every image is the Local Tags buttons. Pressing these buttons will add the tag to only the adjacent image. Pressing again will remove the tag from the image. NOTE: If you have already added a local tag to an image, pressing the same tag in the Global Tags will remove the tag from this image while adding it to all others. Think competing light switches.</li>
-    <li>After you have tagged your images, press the Export button at the top of the page. This will prompt or automatically download a zip file containing your complete data set. NOTE: Images lose their file names in the process and are renamed to generic 001, 002, 003... style names with the associated text file with the same number. This will be changed to random numbers in the future to prevent clashes with new images being added to the set.</li>
+    <li>Press the Load Images button to insert them into the page.</li>
+    <li>At the top of the column of images are the Global Tags buttons. Pressing these will add the tag to every image that is currently loaded. Pressing again will remove it from every image.</li>
+    <li>Beside every image are the Local Tags buttons. Pressing these buttons will add the tag to only the adjacent image. Pressing again will remove the tag from the image. NOTE: If you have already added a Local Tag to an image, pressing the same tag in the Global Tags will remove the tag from this image while adding it to all others. Think competing light switches.</li>
+    <li>After you have tagged your images, press the Export button at the top of the page. This will prompt or automatically download a zip file containing your complete dataset. NOTE: Images lose their file names in the process and are renamed to generic numbered named in the style 001, 002, 003... with an associated text file with the same number. This will be changed to random numbers in the future to prevent clashes with new images being added to the set.</li>
 </ol> 
 
 TODO:
