@@ -1,14 +1,14 @@
 # ImageTagJS
-HTML/JS based image tagger
+A simple HTML/JS based image tagger - no installation required
 
 
 This is 100% functional although rough in appearance. You are currently on your own for creating your own list of tags. These are held in a single category JSON file called 'tags.json'. This will be further built out in the future.
 
 <img src="ImageTagJS.png"/>
 
-Usage:
+## Usage:
 
-Clone this repository:
+### Clone this repository:
 
 ```
    git clone https://github.com/Z-L-D/ImageTagJS.git
@@ -24,7 +24,7 @@ Clone this repository:
     <li>After you have tagged your images, press the Export button at the top of the page. This will prompt or automatically download a zip file containing your complete dataset. NOTE: Images lose their file names in the process and are renamed to generic numbered named in the style 001, 002, 003... with an associated text file with the same number. This will be changed to random numbers in the future to prevent clashes with new images being added to the set.</li>
 </ol> 
 
-TODO:
+## TODO:
 <ul>
     <li>Search for already present text files associated with the images and insert the text</li>
     <li>Organize tags into tabbed categories with extensive lists of items based on the categories: art medium, people, animals, poses, clothing, spaces, furnishings, objects, food, events</li>
