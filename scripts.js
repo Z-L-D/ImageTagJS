@@ -51,8 +51,9 @@ function loadImages() {
     // Clear previously loaded images
     imageColumn.innerHTML = '';
 
-    // Filter only image files
-    const imageFiles = Array.from(input.files).filter(file => /^image\//.test(file.type));
+    const allFiles = Array.from(input.files);
+    const imageFiles = allFiles.filter(file => /^image\//.test(file.type));
+    const textFiles = allFiles.filter(file => /\.txt$/.test(file.name));
 
     imageFiles.forEach(file => {
         const reader = new FileReader();
@@ -62,16 +63,27 @@ function loadImages() {
 
             const textarea = document.createElement('textarea');
 
+            // Try to find the corresponding text file
+            const textFilename = file.name.replace(/\.[^/.]+$/, ".txt");
+            const textFile = textFiles.find(tf => tf.name === textFilename);
+            if (textFile) {
+                const textReader = new FileReader();
+                textReader.onload = function(textEvent) {
+                    textarea.value = textEvent.target.result;
+                }
+                textReader.readAsText(textFile);
+            }
+
             const tagsContainer = document.createElement('div');
             tagsContainer.classList.add('tagsContainer');
 
             globalTags.forEach(tag => {
                 const tagLabel = document.createElement('label');
                 const tagCheckbox = document.createElement('input');
-                        
+                
                 tagCheckbox.type = 'checkbox';
                 tagCheckbox.value = tag;
-                        
+                
                 tagCheckbox.addEventListener('change', function() {
                     if (this.checked) {
                         // Append tag text
@@ -88,13 +100,12 @@ function loadImages() {
                 tagsContainer.appendChild(tagLabel);
             });
 
-        
             const imageRow = document.createElement('div');
             imageRow.classList.add('imageRow');
             imageRow.appendChild(img);
             imageRow.appendChild(textarea);
             imageRow.appendChild(tagsContainer);
-        
+
             imageColumn.appendChild(imageRow);
         };
 
@@ -103,6 +114,8 @@ function loadImages() {
 }
 
 async function exportZip() {
+    startLoadingAnimation();
+
     const zip = new JSZip();
     const imageColumn = document.getElementById('imageColumn');
 
@@ -122,28 +135,30 @@ async function exportZip() {
             default: return 'jpg'; // default to jpg
         }
     }
-
-    // Loop over each image row to process the image and textarea
-    imageColumn.querySelectorAll('.imageRow').forEach(row => {
+    
+    const rows = Array.from(imageColumn.querySelectorAll('.imageRow'));
+    
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
         const img = row.querySelector('img');
         const textarea = row.querySelector('textarea');
 
         const imageExtension = getExtensionFromMimeType(img.src);
-
-        // Add the image to the zip (assuming base64 encoded data)
         const base64Data = img.src.split(',')[1];
-        const imageFilename = `${imageFileCount.toString().padStart(3, '0')}.${imageExtension}`;
-        zip.file(imageFilename, base64Data, {base64: true});
-        imageFileCount++;
+        const imageFilename = `${(i+1).toString().padStart(3, '0')}.${imageExtension}`;
 
-        // Add the textarea content to a text file in the zip
-        const textFilename = `${textFileCount.toString().padStart(3, '0')}.txt`;
+        zip.file(imageFilename, base64Data, {base64: true, compression: "DEFLATE", compressionOptions: { level: 1 }});
+        
+        const textFilename = `${(i+1).toString().padStart(3, '0')}.txt`;
         const textBlob = new Blob([textarea.value], {type: "text/plain"});
-        zip.file(textFilename, textBlob);
-        textFileCount++;
-    });
+        zip.file(textFilename, textBlob, {compression: "DEFLATE", compressionOptions: { level: 1 }});
 
-    // Generate the zip file and offer it for download
+        // Give control back to the browser for a frame to keep UI responsive.
+        if (i % 10 === 0) { // Adjust this batch size as needed.
+            await new Promise(resolve => setTimeout(resolve));
+        }
+    }
+
     const content = await zip.generateAsync({type: "blob"});
     const url = URL.createObjectURL(content);
 
@@ -152,8 +167,27 @@ async function exportZip() {
     a.download = "exported_files.zip";
     a.click();
 
-    // Cleanup
     URL.revokeObjectURL(url);
+
+    stopLoadingAnimation();
 }
 
+let animationInterval;
 
+function startLoadingAnimation() {
+    const loadingElement = document.getElementById('loadingAnimation');
+    loadingElement.style.display = 'inline';
+
+    const frames = ['|', '/', '-', '\\'];
+    let frameIndex = 0;
+    
+    animationInterval = setInterval(() => {
+        loadingElement.textContent = frames[frameIndex];
+        frameIndex = (frameIndex + 1) % frames.length; // This wraps the animation back to the start
+    }, 200); // Adjust the interval for speed, this is set to 200ms between frames
+}
+
+function stopLoadingAnimation() {
+    clearInterval(animationInterval);
+    document.getElementById('loadingAnimation').style.display = 'none';
+}
