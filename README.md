@@ -4,6 +4,8 @@ HTML/JS based image tagger
 
 This is 100% functional although rough in appearance. You are currently on your own for creating your own list of tags. These are held in a single category JSON file called 'tags.json'. This will be further built out in the future.
 
+<img src="ImageTagJS.png"/>
+
 Usage:
 
 <ol>
