@@ -7,6 +7,19 @@ window.onload = function() {
 };
 
 function fetchTags() {
+    // This section commented for legacy purposes.
+    // ----------------------------------------------------------------------------------------
+    // The code below references a *.json file which is slightly more portable
+    //   than a *.js file, being parsed as a file rather than held as a js constant.
+    //   I made the decision to switch to *.js due to the content origin policy in most
+    //   browsers refusing to load *.json files (and many other types) if the page is
+    //   is not being presented from a server. I'd rather users not need to load this 
+    //   program unnecessarily with a server when that would provide very little function 
+    //   beyond circumventing this obstacle. This code will remain here in the event that 
+    //   features are added in the future that do necessitate a server. This would 
+    //   allow greater portability with other devs that may wish to use the tags in
+    //   other apps.
+    // ----------------------------------------------------------------------------------------
     // fetch('tags.json')
     // .then(response => response.json())
     // .then(data => {
