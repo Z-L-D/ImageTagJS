@@ -30,31 +30,31 @@ function fetchTags() {
     //     console.error("Error fetching tags:", error);
     // });
 
-    // loadedTags = tags.tags;
-    // populateGlobalTags();
+    loadedTags = tags.tags;
+    populateGlobalTags();
 }
 
-// function populateGlobalTags() {
-//     const container = document.getElementById('globalTagsContainer');
+function populateGlobalTags() {
+    const container = document.getElementById('globalTagsContainer');
     
-//     loadedTags.forEach(tag => {
-//         const tagButton = document.createElement('button');
+    loadedTags.forEach(tag => {
+        const tagButton = document.createElement('button');
         
-//         tagButton.textContent = tag;
+        tagButton.textContent = tag;
         
-//         tagButton.addEventListener('click', function() {
-//             const allCheckboxes = document.querySelectorAll(`input[type="checkbox"][value="${tag}"]`);
-//             allCheckboxes.forEach(checkbox => {
-//                 checkbox.checked = !checkbox.checked;
+        tagButton.addEventListener('click', function() {
+            const allCheckboxes = document.querySelectorAll(`input[type="checkbox"][value="${tag}"]`);
+            allCheckboxes.forEach(checkbox => {
+                checkbox.checked = !checkbox.checked;
                 
-//                 // Simulate the change event to trigger our previous listener
-//                 checkbox.dispatchEvent(new Event('change'));
-//             });
-//         });
+                // Simulate the change event to trigger our previous listener
+                checkbox.dispatchEvent(new Event('change'));
+            });
+        });
         
-//         container.appendChild(tagButton);
-//     });
-// }
+        container.appendChild(tagButton);
+    });
+}
 
 
 function loadImages() {
@@ -68,7 +68,7 @@ function loadImages() {
     const imageFiles = allFiles.filter(file => /^image\//.test(file.type));
     const textFiles = allFiles.filter(file => /\.txt$/.test(file.name));
 
-    imageFiles.forEach((file, imageIndex) => {
+    imageFiles.forEach(file => {
         const reader = new FileReader();
         reader.onload = function(event) {
             const img = new Image();
@@ -87,8 +87,68 @@ function loadImages() {
                 textReader.readAsText(textFile);
             }
 
-            // Create the tabbed tags container
-            const tagsContainer = createTagsContainer(textarea, imageIndex);
+            // Create nav-tabs for tags
+            const tagsNav = document.createElement('div');
+            tagsNav.classList.add('nav', 'nav-tabs');
+            tagsNav.id = 'tags-tab';
+            tagsNav.setAttribute('role', 'tablist');
+
+            // Create tab-content container for tags
+            const tagsTabContent = document.createElement('div');
+            tagsTabContent.classList.add('tab-content');
+            tagsTabContent.id = 'tags-tabContent';
+
+            // Iterate through tags
+            loadedTags.forEach((tag, index) => {
+                // Create nav item
+                const navItem = document.createElement('a');
+                navItem.classList.add('nav-item', 'nav-link');
+                navItem.id = `tag-${index}-tab`;
+                navItem.setAttribute('data-toggle', 'tab');
+                navItem.setAttribute('href', `#tag-${index}`);
+                navItem.setAttribute('role', 'tab');
+                navItem.setAttribute('aria-controls', `tag-${index}`);
+                navItem.textContent = tag;
+                
+                // Append to tagsNav
+                tagsNav.appendChild(navItem);
+                
+                // Create tab pane
+                const tabPane = document.createElement('div');
+                tabPane.classList.add('tab-pane', 'fade');
+                tabPane.id = `tag-${index}`;
+                tabPane.setAttribute('role', 'tabpanel');
+                tabPane.setAttribute('aria-labelledby', `tag-${index}-tab`);
+                
+                // Create checkbox inside tab pane
+                const tagCheckbox = document.createElement('input');
+                tagCheckbox.type = 'checkbox';
+                tagCheckbox.value = tag;
+                tagCheckbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        // Append tag text
+                        textarea.value += this.value + ', ';
+                    } else {
+                        // Remove tag text
+                        textarea.value = textarea.value.replace(this.value + ', ', '');
+                    }
+                });
+            
+                // Append checkbox to tabPane
+                tabPane.appendChild(tagCheckbox);
+            
+                // Append tab pane to tagsTabContent
+                tagsTabContent.appendChild(tabPane);
+            });
+
+            // Append nav-tabs and tab-content to the main tagsContainer
+            const tagsContainer = document.createElement('div');
+            tagsContainer.classList.add('tagsContainer');
+            tagsContainer.appendChild(tagsNav);
+            tagsContainer.appendChild(tagsTabContent);
+
+            // Now you can append `tagsContainer` wherever you want in your DOM
+
 
             const imageRow = document.createElement('div');
             imageRow.classList.add('imageRow');
@@ -101,71 +161,6 @@ function loadImages() {
 
         reader.readAsDataURL(file);
     });
-}
-
-function createTagsContainer(textarea, containerIndex) {
-    const tagsNav = document.createElement('div');
-    tagsNav.classList.add('nav', 'nav-tabs');
-    tagsNav.id = `tags-tab-${containerIndex}`;
-    tagsNav.setAttribute('role', 'tablist');
-
-    const tagsTabContent = document.createElement('div');
-    tagsTabContent.classList.add('tab-content');
-    tagsTabContent.id = `tags-tabContent-${containerIndex}`;
-
-    let index = 0;
-    for (const [mainKey, subTags] of Object.entries(tags)) {
-        const navItem = document.createElement('a');
-        navItem.classList.add('nav-item', 'nav-link');
-        navItem.id = `tag-${index}-tab-${containerIndex}`;
-        navItem.setAttribute('data-toggle', 'tab');
-        navItem.setAttribute('href', `#tag-${index}-${containerIndex}`);
-        navItem.setAttribute('role', 'tab');
-        navItem.setAttribute('aria-controls', `tag-${index}-${containerIndex}`);
-        navItem.textContent = mainKey;
-
-        tagsNav.appendChild(navItem);
-
-        const tabPane = document.createElement('div');
-        tabPane.classList.add('tab-pane', 'fade');
-        tabPane.id = `tag-${index}-${containerIndex}`;
-        tabPane.setAttribute('role', 'tabpanel');
-        tabPane.setAttribute('aria-labelledby', `tag-${index}-tab-${containerIndex}`);
-
-        subTags.forEach(tag => {
-            const tagCheckbox = document.createElement('input');
-            tagCheckbox.type = 'checkbox';
-            tagCheckbox.value = tag;
-
-            const tagLabel = document.createElement('label');
-            tagLabel.textContent = tag;
-
-            tagCheckbox.addEventListener('change', function() {
-                if (this.checked) {
-                    textarea.value += this.value + ', ';
-                } else {
-                    textarea.value = textarea.value.replace(this.value + ', ', '');
-                }
-            });
-
-            const checkboxContainer = document.createElement('div');
-            checkboxContainer.appendChild(tagCheckbox);
-            checkboxContainer.appendChild(tagLabel);
-
-            tabPane.appendChild(checkboxContainer);
-        });
-
-        tagsTabContent.appendChild(tabPane);
-
-        index++;
-    }
-
-    const tagsContainer = document.createElement('div');
-    tagsContainer.classList.add('tagsContainer');
-    tagsContainer.appendChild(tagsNav);
-    tagsContainer.appendChild(tagsTabContent);
-
-    return tagsContainer;
 }
 
 async function exportZip() {

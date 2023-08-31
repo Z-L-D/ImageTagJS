@@ -1,4 +1,12 @@
 const tags = {
-    
-    "tags": ["man", "woman", "inside", "outside", "photo", "illustration", "candid", "portrait"]
+    "art medium": ["photograph", "illustration"],
+    "people": ["man", "woman", "child"],
+    "animals": ["dog", "cat"],
+    "poses": ["standing", "laying"],
+    "clothing": ["shirt", "pants"],
+    "spaces": ["outside", "kitchen"],
+    "furnishings": ["toilet", "bed"],
+    "objects": ["cell phone", "computer"],
+    "food": ["hamburger", "salad"],
+    "events": ["new years eve", "christmas"]
 }
