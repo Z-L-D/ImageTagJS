@@ -30,14 +30,14 @@ function fetchTags() {
     //     console.error("Error fetching tags:", error);
     // });
 
-    globalTags = tags.tags;
+    loadedTags = tags.tags;
     populateGlobalTags();
 }
 
 function populateGlobalTags() {
     const container = document.getElementById('globalTagsContainer');
     
-    globalTags.forEach(tag => {
+    loadedTags.forEach(tag => {
         const tagButton = document.createElement('button');
         
         tagButton.textContent = tag;
@@ -87,16 +87,43 @@ function loadImages() {
                 textReader.readAsText(textFile);
             }
 
-            const tagsContainer = document.createElement('div');
-            tagsContainer.classList.add('tagsContainer');
+            // Create nav-tabs for tags
+            const tagsNav = document.createElement('div');
+            tagsNav.classList.add('nav', 'nav-tabs');
+            tagsNav.id = 'tags-tab';
+            tagsNav.setAttribute('role', 'tablist');
 
-            globalTags.forEach(tag => {
-                const tagLabel = document.createElement('label');
-                const tagCheckbox = document.createElement('input');
+            // Create tab-content container for tags
+            const tagsTabContent = document.createElement('div');
+            tagsTabContent.classList.add('tab-content');
+            tagsTabContent.id = 'tags-tabContent';
+
+            // Iterate through tags
+            loadedTags.forEach((tag, index) => {
+                // Create nav item
+                const navItem = document.createElement('a');
+                navItem.classList.add('nav-item', 'nav-link');
+                navItem.id = `tag-${index}-tab`;
+                navItem.setAttribute('data-toggle', 'tab');
+                navItem.setAttribute('href', `#tag-${index}`);
+                navItem.setAttribute('role', 'tab');
+                navItem.setAttribute('aria-controls', `tag-${index}`);
+                navItem.textContent = tag;
                 
+                // Append to tagsNav
+                tagsNav.appendChild(navItem);
+                
+                // Create tab pane
+                const tabPane = document.createElement('div');
+                tabPane.classList.add('tab-pane', 'fade');
+                tabPane.id = `tag-${index}`;
+                tabPane.setAttribute('role', 'tabpanel');
+                tabPane.setAttribute('aria-labelledby', `tag-${index}-tab`);
+                
+                // Create checkbox inside tab pane
+                const tagCheckbox = document.createElement('input');
                 tagCheckbox.type = 'checkbox';
                 tagCheckbox.value = tag;
-                
                 tagCheckbox.addEventListener('change', function() {
                     if (this.checked) {
                         // Append tag text
@@ -106,12 +133,22 @@ function loadImages() {
                         textarea.value = textarea.value.replace(this.value + ', ', '');
                     }
                 });
-                
-                tagLabel.appendChild(tagCheckbox);
-                tagLabel.appendChild(document.createTextNode(tag));
             
-                tagsContainer.appendChild(tagLabel);
+                // Append checkbox to tabPane
+                tabPane.appendChild(tagCheckbox);
+            
+                // Append tab pane to tagsTabContent
+                tagsTabContent.appendChild(tabPane);
             });
+
+            // Append nav-tabs and tab-content to the main tagsContainer
+            const tagsContainer = document.createElement('div');
+            tagsContainer.classList.add('tagsContainer');
+            tagsContainer.appendChild(tagsNav);
+            tagsContainer.appendChild(tagsTabContent);
+
+            // Now you can append `tagsContainer` wherever you want in your DOM
+
 
             const imageRow = document.createElement('div');
             imageRow.classList.add('imageRow');
@@ -129,10 +166,11 @@ function loadImages() {
 async function exportZip() {
     startLoadingAnimation();
 
-    // Initialize an object to store the files that will go into the ZIP.
-    const files = {};
-
+    const zip = new JSZip();
     const imageColumn = document.getElementById('imageColumn');
+
+    let textFileCount = 1;
+    let imageFileCount = 1;
 
     // Function to get the image extension from its MIME type
     function getExtensionFromMimeType(dataURL) {
@@ -147,13 +185,9 @@ async function exportZip() {
             default: return 'jpg'; // default to jpg
         }
     }
-
+    
     const rows = Array.from(imageColumn.querySelectorAll('.imageRow'));
-
-    // Generate random dataset batch number
-    let randomFloat = Math.random();
-    let batchNumber = Math.round(randomFloat * 1000000);
-
+    
     for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
         const img = row.querySelector('img');
@@ -161,21 +195,13 @@ async function exportZip() {
 
         const imageExtension = getExtensionFromMimeType(img.src);
         const base64Data = img.src.split(',')[1];
-        const imageFilename = `${batchNumber}-${(i+1).toString().padStart(5, '0')}.${imageExtension}`;
-        
-        // Convert base64 to Uint8Array
-        const imageArrayBuffer = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
-        
-        files[imageFilename] = imageArrayBuffer;
+        const imageFilename = `${(i+1).toString().padStart(3, '0')}.${imageExtension}`;
 
-        const textFilename = `${batchNumber}-${(i+1).toString().padStart(5, '0')}.txt`;
+        zip.file(imageFilename, base64Data, {base64: true, compression: "DEFLATE", compressionOptions: { level: 1 }});
+        
+        const textFilename = `${(i+1).toString().padStart(3, '0')}.txt`;
         const textBlob = new Blob([textarea.value], {type: "text/plain"});
-        
-        // Convert Blob to Uint8Array
-        const arrayBuffer = await textBlob.arrayBuffer();
-        const textArrayBuffer = new Uint8Array(arrayBuffer);
-        
-        files[textFilename] = textArrayBuffer;
+        zip.file(textFilename, textBlob, {compression: "DEFLATE", compressionOptions: { level: 1 }});
 
         // Give control back to the browser for a frame to keep UI responsive.
         if (i % 10 === 0) { // Adjust this batch size as needed.
@@ -183,11 +209,8 @@ async function exportZip() {
         }
     }
 
-    // Create ZIP using UZIP
-    const zipData = UZIP.encode(files);
-
-    const blob = new Blob([zipData], { type: "application/zip" });
-    const url = URL.createObjectURL(blob);
+    const content = await zip.generateAsync({type: "blob"});
+    const url = URL.createObjectURL(content);
 
     const a = document.createElement('a');
     a.href = url;
