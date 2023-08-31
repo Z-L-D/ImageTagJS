@@ -1,3 +1,18 @@
+body {
+    background-color: #f0f0f0;
+}
+.gr-interface {
+    border: 1px solid #ccc;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.btn-primary {
+    background-color: #3776ab;
+    border-color: #3776ab;
+}
+
 #imageColumn {
     display: flex;
     flex-direction: column;
@@ -11,7 +26,7 @@
 }
 
 img {
-    max-width: 200px;
+    max-width: 300px;
     height: auto;
 }
 

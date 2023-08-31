@@ -1,0 +1,40 @@
+doctype html
+html(lang='en')
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title Load Images from Folder
+		link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css')
+		link(rel='stylesheet', href='styles.css')
+		script(src='jszip.min.js')
+
+	body.container.mt-5
+		.gr-interface
+			// File Input
+			.form-group
+				input.form-control-file(type='file', id='folderInput', webkitdirectory, directory, multiple)
+
+			// Buttons
+			.mt-2.mb-2
+				button.btn.btn-primary(id='loadButton') Load Images
+				button.btn.btn-secondary(onclick='exportZip()') Export
+
+			// Loading Animation
+			span.ml-3(style='display: none;', id='loadingAnimation') Loading...
+
+			// Global Tags Container
+			#globalTagsContainer.mt-4
+
+			// Image Column and Tags Container
+			.row.mt-4
+				#imageColumn
+				.col-md-4.tagsContainer
+
+		// Bootstrap JS (Optional)
+		script(src='https://code.jquery.com/jquery-3.5.1.slim.min.js')
+		script(src='https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js')
+		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js')
+
+		// Custom Scripts
+		script(src='scripts.js')
+		script(src='tags.js')
