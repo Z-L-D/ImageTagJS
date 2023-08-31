@@ -129,10 +129,11 @@ function loadImages() {
 async function exportZip() {
     startLoadingAnimation();
 
-    // Initialize an object to store the files that will go into the ZIP.
-    const files = {};
-
+    const zip = new JSZip();
     const imageColumn = document.getElementById('imageColumn');
+
+    let textFileCount = 1;
+    let imageFileCount = 1;
 
     // Function to get the image extension from its MIME type
     function getExtensionFromMimeType(dataURL) {
@@ -147,13 +148,9 @@ async function exportZip() {
             default: return 'jpg'; // default to jpg
         }
     }
-
+    
     const rows = Array.from(imageColumn.querySelectorAll('.imageRow'));
-
-    // Generate random dataset batch number
-    let randomFloat = Math.random();
-    let batchNumber = Math.round(randomFloat * 1000000);
-
+    
     for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
         const img = row.querySelector('img');
@@ -161,21 +158,13 @@ async function exportZip() {
 
         const imageExtension = getExtensionFromMimeType(img.src);
         const base64Data = img.src.split(',')[1];
-        const imageFilename = `${batchNumber}-${(i+1).toString().padStart(5, '0')}.${imageExtension}`;
-        
-        // Convert base64 to Uint8Array
-        const imageArrayBuffer = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
-        
-        files[imageFilename] = imageArrayBuffer;
+        const imageFilename = `${(i+1).toString().padStart(3, '0')}.${imageExtension}`;
 
-        const textFilename = `${batchNumber}-${(i+1).toString().padStart(5, '0')}.txt`;
+        zip.file(imageFilename, base64Data, {base64: true, compression: "DEFLATE", compressionOptions: { level: 1 }});
+        
+        const textFilename = `${(i+1).toString().padStart(3, '0')}.txt`;
         const textBlob = new Blob([textarea.value], {type: "text/plain"});
-        
-        // Convert Blob to Uint8Array
-        const arrayBuffer = await textBlob.arrayBuffer();
-        const textArrayBuffer = new Uint8Array(arrayBuffer);
-        
-        files[textFilename] = textArrayBuffer;
+        zip.file(textFilename, textBlob, {compression: "DEFLATE", compressionOptions: { level: 1 }});
 
         // Give control back to the browser for a frame to keep UI responsive.
         if (i % 10 === 0) { // Adjust this batch size as needed.
@@ -183,11 +172,8 @@ async function exportZip() {
         }
     }
 
-    // Create ZIP using UZIP
-    const zipData = UZIP.encode(files);
-
-    const blob = new Blob([zipData], { type: "application/zip" });
-    const url = URL.createObjectURL(blob);
+    const content = await zip.generateAsync({type: "blob"});
+    const url = URL.createObjectURL(content);
 
     const a = document.createElement('a');
     a.href = url;
