@@ -7,6 +7,7 @@ const tags = {
     "spaces": ["outside", "kitchen"],
     "furnishings": ["toilet", "bed"],
     "objects": ["cell phone", "computer"],
+    "vehicles": ["car", "motorcycle", "airplane", "jet", "boat"],
     "food": ["hamburger", "salad"],
     "events": ["new years eve", "christmas"]
 }
