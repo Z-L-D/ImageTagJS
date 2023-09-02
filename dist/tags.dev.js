@@ -64,10 +64,9 @@ const tags = {
     },
     "people": {
         "number of people": [
-            "one",
-            "two",
-            "several",
-            "crowd"
+            "one people",
+            "two people",
+            "a crowd"
         ],
         "age": Range(1, 100),
         "age appearance": [
