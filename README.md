@@ -2,7 +2,7 @@
 A simple HTML/JS based image tagger - no installation required
 
 
-This is 100% functional although rough in appearance. You are currently on your own for creating your own list of tags. These are held in a single category JSON file called 'tags.js'. This will be further built out in the future.
+This is 100% functional although rough in appearance. You are currently on your own for creating your own list of tags. These are held in a single category JSON file called 'tags.js'. Currently, the page is poorly styled but the tags file should be 90% complete.
 
 <img src="ImageTagJS.png"/>
 

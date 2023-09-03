@@ -68,7 +68,6 @@ const tags = {
             "two people",
             "a crowd"
         ],
-        "age": Range(1, 100),
         "age appearance": [
             "Infant",
             "Toddler",

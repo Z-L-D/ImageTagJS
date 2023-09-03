@@ -113,51 +113,82 @@ function createTagsContainer(textarea, containerIndex) {
     tagsTabContent.classList.add('tab-content');
     tagsTabContent.id = `tags-tabContent-${containerIndex}`;
 
-    let index = 0;
+    let mainIndex = 0;
     for (const [mainKey, subTags] of Object.entries(tags)) {
         const navItem = document.createElement('a');
         navItem.classList.add('nav-item', 'nav-link');
-        navItem.id = `tag-${index}-tab-${containerIndex}`;
+        navItem.id = `tag-${mainIndex}-tab-${containerIndex}`;
         navItem.setAttribute('data-toggle', 'tab');
-        navItem.setAttribute('href', `#tag-${index}-${containerIndex}`);
+        navItem.setAttribute('href', `#tag-${mainIndex}-${containerIndex}`);
         navItem.setAttribute('role', 'tab');
-        navItem.setAttribute('aria-controls', `tag-${index}-${containerIndex}`);
         navItem.textContent = mainKey;
 
         tagsNav.appendChild(navItem);
 
         const tabPane = document.createElement('div');
         tabPane.classList.add('tab-pane', 'fade');
-        tabPane.id = `tag-${index}-${containerIndex}`;
+        tabPane.id = `tag-${mainIndex}-${containerIndex}`;
         tabPane.setAttribute('role', 'tabpanel');
-        tabPane.setAttribute('aria-labelledby', `tag-${index}-tab-${containerIndex}`);
 
-        subTags.forEach(tag => {
-            const tagCheckbox = document.createElement('input');
-            tagCheckbox.type = 'checkbox';
-            tagCheckbox.value = tag;
+        // Create inner tabs
+        const innerTagsNav = document.createElement('div');
+        innerTagsNav.classList.add('nav', 'nav-tabs');
+        innerTagsNav.setAttribute('role', 'tablist');
 
-            const tagLabel = document.createElement('label');
-            tagLabel.textContent = tag;
+        const innerTagsTabContent = document.createElement('div');
+        innerTagsTabContent.classList.add('tab-content');
 
-            tagCheckbox.addEventListener('change', function() {
-                if (this.checked) {
-                    textarea.value += this.value + ', ';
-                } else {
-                    textarea.value = textarea.value.replace(this.value + ', ', '');
-                }
+        let innerIndex = 0;
+        for (const [innerKey, innerTags] of Object.entries(subTags)) {
+            const innerNavItemId = `inner-tag-${containerIndex}-${mainIndex}-${innerIndex}`;
+            const innerNavItem = document.createElement('a');
+            innerNavItem.classList.add('nav-item', 'nav-link');
+            innerNavItem.id = innerNavItemId + '-tab';
+            innerNavItem.setAttribute('data-toggle', 'tab');
+            innerNavItem.setAttribute('href', `#${innerNavItemId}`);
+            innerNavItem.setAttribute('role', 'tab');
+            innerNavItem.textContent = innerKey;
+
+            const innerTabPane = document.createElement('div');
+            innerTabPane.classList.add('tab-pane', 'fade');
+            innerTabPane.id = innerNavItemId;
+            innerTabPane.setAttribute('role', 'tabpanel');
+
+            innerTags.forEach(tag => {
+                const tagCheckbox = document.createElement('input');
+                tagCheckbox.type = 'checkbox';
+                tagCheckbox.value = tag;
+
+                const tagLabel = document.createElement('label');
+                tagLabel.textContent = tag;
+
+                tagCheckbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        textarea.value += this.value + ', ';
+                    } else {
+                        textarea.value = textarea.value.replace(this.value + ', ', '');
+                    }
+                });
+
+                const checkboxContainer = document.createElement('div');
+                checkboxContainer.appendChild(tagCheckbox);
+                checkboxContainer.appendChild(tagLabel);
+
+                innerTabPane.appendChild(checkboxContainer);
             });
 
-            const checkboxContainer = document.createElement('div');
-            checkboxContainer.appendChild(tagCheckbox);
-            checkboxContainer.appendChild(tagLabel);
+            innerTagsNav.appendChild(innerNavItem);
+            innerTagsTabContent.appendChild(innerTabPane);
 
-            tabPane.appendChild(checkboxContainer);
-        });
+            innerIndex++;
+        }
+
+        tabPane.appendChild(innerTagsNav);
+        tabPane.appendChild(innerTagsTabContent);
 
         tagsTabContent.appendChild(tabPane);
-
-        index++;
+        
+        mainIndex++;
     }
 
     const tagsContainer = document.createElement('div');
@@ -167,6 +198,7 @@ function createTagsContainer(textarea, containerIndex) {
 
     return tagsContainer;
 }
+
 
 async function exportZip() {
     startLoadingAnimation();

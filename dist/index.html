@@ -1,39 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Load Images from Folder</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-		<link rel="stylesheet" href="styles.css">
-		<script src="jszip.min.js"></script>
-	</head>
-	<body class="container mt-5">
-		<div class="gr-interface">
-			<!-- File Input-->
-			<div class="form-group">
-				<input class="form-control-file" type="file" id="folderInput" webkitdirectory directory multiple>
-			</div>
-			<!-- Buttons-->
-			<div class="mt-2 mb-2">
-				<button class="btn btn-primary" id="loadButton">Load Images</button>
-				<button class="btn btn-secondary" onclick="exportZip()">Export</button>
-			</div>
-			<!-- Loading Animation--><span class="ml-3" style="display: none;" id="loadingAnimation">Loading...</span>
-			<!-- Global Tags Container-->
-			<div class="mt-4" id="globalTagsContainer"></div>
-			<!-- Image Column and Tags Container-->
-			<div class="row mt-4">
-				<div id="imageColumn"></div>
-				<div class="col-md-4 tagsContainer"></div>
-			</div>
-		</div>
-		<!-- Bootstrap JS (Optional)-->
-		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-		<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<!-- Custom Scripts-->
-		<script src="scripts.js"></script>
-		<script src="tags.js"></script>
-	</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Load Images from Folder</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="jszip.min.js"></script>
+  </head>
+  <body class="container mt-5">
+    <div class="gr-interface">
+      <!-- File Input-->
+      <div class="form-group">
+        <input class="form-control-file" type="file" id="folderInput" webkitdirectory directory multiple>
+      </div>
+      <!-- Buttons-->
+      <div class="mt-2 mb-2">
+        <button class="btn btn-primary" id="loadButton">Load Images</button>
+        <button class="btn btn-secondary" onclick="exportZip()">Export</button>
+      </div>
+      <!-- Loading Animation--><span class="ml-3" style="display: none;" id="loadingAnimation">Loading...</span>
+      <!-- Global Tags Container-->
+      <div class="mt-4" id="globalTagsContainer"></div>
+      <!-- Image Column and Tags Container-->
+      <div class="row mt-4">
+        <div id="imageColumn"></div>
+        <div class="col-md-4 tagsContainer"></div>
+      </div>
+    </div>
+    <!-- Bootstrap JS (Optional)-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <!-- Custom Scripts-->
+    <script src="scripts.js"></script>
+    <script src="tags.dev.js"></script>
+  </body>
 </html>
