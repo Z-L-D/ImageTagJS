@@ -226,6 +226,7 @@ const tags = {
             "dimples",
             "chin dimple",
             "cheekbones",
+            "big lips",
             "small earring",
             "large earring",
             "small earrings",
