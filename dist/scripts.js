@@ -224,6 +224,10 @@ async function exportZip() {
     }
     
     const rows = Array.from(imageColumn.querySelectorAll('.imageRow'));
+
+    // Generate random dataset batch number
+    let randomFloat = Math.random();
+    let batchNumber = Math.round(randomFloat * 1000000);
     
     for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
@@ -232,11 +236,11 @@ async function exportZip() {
 
         const imageExtension = getExtensionFromMimeType(img.src);
         const base64Data = img.src.split(',')[1];
-        const imageFilename = `${(i+1).toString().padStart(3, '0')}.${imageExtension}`;
+        const imageFilename = `${batchNumber}-${(i+1).toString().padStart(5, '0')}.${imageExtension}`;
 
         zip.file(imageFilename, base64Data, {base64: true, compression: "DEFLATE", compressionOptions: { level: 1 }});
         
-        const textFilename = `${(i+1).toString().padStart(3, '0')}.txt`;
+        const textFilename = `${batchNumber}-${(i+1).toString().padStart(5, '0')}.txt`;
         const textBlob = new Blob([textarea.value], {type: "text/plain"});
         zip.file(textFilename, textBlob, {compression: "DEFLATE", compressionOptions: { level: 1 }});
 
