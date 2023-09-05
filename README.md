@@ -29,6 +29,7 @@ This is 100% functional although rough in appearance. You are currently on your 
     <li>Style the page</li>
     <li>Fix styling issue with tab width</li>
     <li>Fix appearance of tags in tabs</li>
-    <li>Possibly explore adding functionality through Pica.js to add a max width and height and automatically perform a weighted average downscale if necessary.</li>
-    <li>Possibly explore adding functionality through Pica.js to add a built in cropping function</li>
+    <li>Explore adding functionality through Pica.js to add a max width and height and automatically perform a weighted average downscale if necessary.</li>
+    <li>Explore adding functionality through Pica.js to add a built in cropping function</li>
+    <li>Explore integrating smartcrop.js for automated cropping to subjects</li>
 </ul>
