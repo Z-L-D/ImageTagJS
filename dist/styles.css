@@ -21,18 +21,19 @@ body {
 
 .imageRow {
     display: flex;
-    align-items: center;
     gap: 10px;
+    height: 384px;
 }
 
 img {
-    max-width: 300px;
-    height: auto;
+    max-height: 384px;
+    max-width: 256px;
+    object-fit: contain;
 }
 
 textarea {
-    height: 250px;
-    width: 500px;
+    height: 384px;
+    width: auto;
 }
 
 .tagsContainer {
@@ -49,6 +50,8 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    overflow-y: scroll;
+    width: 600px;
 }
 
 .globalTagsContainer button, .tagsContainer button {
