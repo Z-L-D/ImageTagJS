@@ -17,7 +17,7 @@ ImageTagJS is an image tagging/captioning/annotating software that can be fully 
 
 ## Usage:
 
-### Clone this repository:
+For the latest, clone this repository:
 
 ```
    git clone https://github.com/Z-L-D/ImageTagJS.git
