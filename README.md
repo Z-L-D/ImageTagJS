@@ -46,5 +46,5 @@ For the latest, clone this repository:
     <li>Styling issue with tab height</li>
     <li>Appearance of tags in tabs</li>
     <li>Imported tags aren't checked against the tags library</li>
-    <li>The current layout does not work well with narrows screens</li>
+    <li>The current layout does not work well with screens under 1280px wide at this time</li>
 </ul>
