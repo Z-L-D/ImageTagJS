@@ -2,9 +2,18 @@
 A simple HTML/JS based image tagger - no installation required
 
 
-This is 100% functional although rough in appearance. You are currently on your own for creating your own list of tags. These are held in a single category JSON file called 'tags.js'. Currently, the page is poorly styled but the tags file should be 90% complete.
+ImageTagJS is an image tagging/captioning/annotating software that can be fully run in the browser, no other installations necessary. All you need to do is to supply a folder of images, tag your images and hit export to get a zipped file of your dataset.
 
 <img src="ImageTagJS.png"/>
+
+## Features
+<ul>
+    <li>Runs in nearly all modern browsers</li>
+    <li>Supports all major image formats.</li>
+    <li>Provides a zipped archive of your dataset for easy storage</li>
+    <li>Can import image-text dataset pairs to rapidly review auto generated tags</li>
+    <li>Built in extensive library of organized tags.</li>
+</ul>
 
 ## Usage:
 
@@ -19,17 +28,22 @@ This is 100% functional although rough in appearance. You are currently on your 
     <li>Press the Browse button and select your image dataset folder.</li>
     <li>You will be prompted by your browser to allow your images to be blobbed into memory. Press Upload.</li>
     <li>Press the Load Images button to insert them into the page.</li>
-    ~~<li>At the top of the column of images are the Global Tags buttons. Pressing these will add the tag to every image that is currently loaded. Pressing again will remove it from every image.</li>~~ (temporarily removed)
-    <li>Beside every image are the Local Tags buttons. Pressing these buttons will add the tag to only the adjacent image. Pressing again will remove the tag from the image. ~~NOTE: If you have already added a Local Tag to an image, pressing the same tag in the Global Tags will remove the tag from this image while adding it to all others. Think competing light switches.~~ (temporarily removed)</li>
+    <li>Beside every image are the Local Tags buttons. Pressing these buttons will add the tag to only the adjacent image. Pressing again will remove the tag from the image.</li>
     <li>After you have tagged your images, press the Export button at the top of the page. This will prompt or automatically download a zip file containing your complete dataset. This process will take several minutes if you have a lot of photos. NOTE: Imported images don't retain their original file names and are renamed a batch number and image number name with an associated text file with the same name. </li>
 </ol> 
 
-## TODO:
+## Upcoming features
 <ul>
-    <li>Style the page</li>
-    <li>Fix styling issue with tab width</li>
-    <li>Fix appearance of tags in tabs</li>
-    <li>Explore adding functionality through Pica.js to add a max width and height and automatically perform a weighted average downscale if necessary.</li>
-    <li>Explore adding functionality through Pica.js to add a built in cropping function</li>
-    <li>Explore integrating smartcrop.js for automated cropping to subjects</li>
+    <li>Incorporate smartcrop.js for content aware cropping</li>
+    <li>Incorporate pica.js for alias safe downscaling</li>
+    <li>Incorporate global tagging as a user generated content area from a text box</li>
+    <li>Incorporate an image converter that allows the user to select the exported format - either JPG or PNG - useful for webp images</li>
+    <li>Incorporate an easy way to build and modify a custom tag library that can be alternately used instead of the built in library</li>
+</ul>
+
+## Current Issues:
+<ul>
+    <li>Styling issue with tab height</li>
+    <li>Appearance of tags in tabs</li>
+    <li>Imported tags aren't checked against the tags library</li>
 </ul>
