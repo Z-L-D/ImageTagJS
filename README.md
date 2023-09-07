@@ -39,6 +39,7 @@ For the latest, clone this repository:
     <li>Incorporate global tagging as a user generated content area from a text box</li>
     <li>Incorporate an image converter that allows the user to select the exported format - either JPG or PNG - useful for webp images</li>
     <li>Incorporate an easy way to build and modify a custom tag library that can be alternately used instead of the built in library</li>
+    <li>Incorporate the ability to load zipped datasets.</li>
 </ul>
 
 ## Current Issues:
@@ -47,4 +48,5 @@ For the latest, clone this repository:
     <li>Appearance of tags in tabs</li>
     <li>Imported tags aren't checked against the tags library</li>
     <li>The current layout does not work well with screens under 1280px wide at this time</li>
+    <li>Zipped file should use batch number in filename</li>
 </ul>
