@@ -40,6 +40,7 @@ For the latest, clone this repository:
     <li>Incorporate an image converter that allows the user to select the exported format - either JPG or PNG - useful for webp images</li>
     <li>Incorporate an easy way to build and modify a custom tag library that can be alternately used instead of the built in library</li>
     <li>Incorporate the ability to load zipped datasets.</li>
+    <li>Incorporate checkboxes next to images to allow enabling or disabling inclusion into the dataset.</li>
 </ul>
 
 ## Current Issues:
