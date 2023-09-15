@@ -40,6 +40,8 @@ textarea {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    max-height: 384px;
+    overflow-y: scroll;
 }
 
 .tagsContainer label {
