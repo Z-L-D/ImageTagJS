@@ -91,11 +91,19 @@ function loadImages() {
             // Create the tabbed tags container
             const tagsContainer = createTagsContainer(textarea, imageIndex);
 
+            const horizontalRule = document.createElement('hr');
+            const lineBreak = document.createElement('br');
+
             const imageRow = document.createElement('div');
             imageRow.classList.add('imageRow');
             imageRow.appendChild(img);
             imageRow.appendChild(textarea);
             imageRow.appendChild(tagsContainer);
+            imageRow.appendChild(horizontalRule);
+            imageRow.appendChild(lineBreak);
+            imageRow.appendChild(lineBreak);
+            imageRow.appendChild(lineBreak);
+            imageRow.appendChild(lineBreak);
 
             imageColumn.appendChild(imageRow);
         };
@@ -136,16 +144,21 @@ function createTagsContainer(textarea, containerIndex) {
 
             let innerTabPaneHTML = `<div class="tab-pane fade" id="inner-tag-${containerIndex}-${mainIndex}-${innerIndex}" role="tabpanel">`;
 
+            innerTabPaneHTML += '<div class="checkbox-container">';  // Open the checkbox container
+
             innerTags.forEach(tag => {
                 innerTabPaneHTML += `
-                    <div>
-                        <input type="checkbox" value="${tag}" id="checkbox-${tag}" 
-                        onchange="handleCheckboxChange(this, '${textarea.id}')">
-                        <label>${tag}</label>
+                    <div class="custom-checkbox-wrapper">
+                        <label>
+                            <input type="checkbox" class="custom-checkbox" value="${tag}" id="checkbox-${tag}" 
+                            onchange="handleCheckboxChange(this, '${textarea.id}')">
+                            <span class="custom-label">${tag}</span>
+                        </label>
                     </div>
                 `;
             });
 
+            innerTabPaneHTML += '</div>';  // Close the checkbox container
             innerTabPaneHTML += '</div>';
             innerTagsTabContentHTML += innerTabPaneHTML;
 

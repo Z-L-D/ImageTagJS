@@ -103,3 +103,35 @@ textarea {
 .tab-content > div.active {
     display: block;
 }
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.custom-checkbox-wrapper {
+    flex: 0 0 auto;
+    margin: 5px;
+}
+
+.custom-checkbox {
+    display: none;  /* Hide the checkbox */
+}
+
+.custom-label {
+    padding: 5px;
+    margin: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-block;
+    border: 1px solid rgb(149, 243, 238)
+}
+
+.custom-label:hover {
+    background-color: rgb(106, 199, 194)
+}
+
+.custom-checkbox:checked + .custom-label {
+    background-color: lightseagreen;
+    color: white;
+}
