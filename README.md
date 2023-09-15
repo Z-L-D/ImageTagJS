@@ -45,8 +45,6 @@ For the latest, clone this repository:
 
 ## Current Issues:
 <ul>
-    <li>Styling issue with tab height</li>
-    <li>Appearance of tags in tabs</li>
     <li>Imported tags aren't checked against the tags library</li>
     <li>The current layout does not work well with screens under 1280px wide at this time</li>
     <li>Zipped file should use batch number in filename</li>
