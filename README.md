@@ -26,7 +26,7 @@ For the latest, clone this repository:
 <ol>
     <li>Open index.html in the dist folder with your preferred browser. It should work with the vast majority.</li>
     <li>Press the Browse button and select your image dataset folder.</li>
-    <li>You will be prompted by your browser to allow your images to be blobbed into memory. Press Upload. _(<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory">Read Here</a> for further details in how this process works.)_ </li>
+    <li>You will be prompted by your browser to allow your images to be blobbed into memory. Press Upload. * (<a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/webkitdirectory">Read Here</a> for further details in how this process works.) * </li>
     <li>Press the Load Images button to insert them into the page.</li>
     <li>Beside every image are the Local Tags buttons. Pressing these buttons will add the tag to only the adjacent image. Pressing again will remove the tag from the image.</li>
     <li>After you have tagged your images, press the Export button at the top of the page. This will prompt or automatically download a zip file containing your complete dataset. This process will take several minutes if you have a lot of photos. NOTE: Imported images don't retain their original file names and are renamed a batch number and image number name with an associated text file with the same name. </li>
